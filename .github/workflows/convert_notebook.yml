@@ -12,6 +12,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        persist-credentials: false # This prevents the default token from being used
+        fetch-depth: 0 # Fetches all history so you can push back to it
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -38,5 +41,5 @@ jobs:
           echo "No changes to commit"
         else
           git commit -m "[CI] Convert Jupyter Notebooks to Markdown"
-          git push https://${{ secrets.PERSONAL_TOKEN }}@github.com/tkruer/lc.git HEAD:main
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/tkruer/lc.git HEAD:main
         fi
