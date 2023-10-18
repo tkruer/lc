@@ -32,14 +32,15 @@ jobs:
           jupyter nbconvert --to markdown $notebook
         done
 
-    - name: Commit and push changes
+   - name: Commit changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add -A
-        if git diff --exit-code --staged; then
-          echo "No changes to commit"
-        else
-          git commit -m "[CI] Convert Jupyter Notebooks to Markdown"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/tkruer/lc.git HEAD:main
-        fi
+        git diff --exit-code --staged || git commit -m "[CI] Convert Jupyter Notebooks to Markdown"
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
