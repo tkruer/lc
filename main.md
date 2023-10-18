@@ -1,5 +1,5 @@
 ```python
-%pip install -r requirements.txt
+# %pip install -r requirements.txt
 ```
 
 
@@ -151,20 +151,6 @@ assert Solution().repeatedSubstringPattern(s = "aba") == False
 ```
 
 
-    ---------------------------------------------------------------------------
-
-    AssertionError                            Traceback (most recent call last)
-
-    /Users/tylerkruer/lc/main.ipynb Cell 9 line 1
-          <a href='vscode-notebook-cell:/Users/tylerkruer/lc/main.ipynb#X11sZmlsZQ%3D%3D?line=7'>8</a>         return False
-         <a href='vscode-notebook-cell:/Users/tylerkruer/lc/main.ipynb#X11sZmlsZQ%3D%3D?line=10'>11</a> assert Solution().repeatedSubstringPattern(s = "abab") == True
-    ---> <a href='vscode-notebook-cell:/Users/tylerkruer/lc/main.ipynb#X11sZmlsZQ%3D%3D?line=11'>12</a> assert Solution().repeatedSubstringPattern(s = "aba") == False
-
-
-    AssertionError: 
-
-
-
 ```python
 class Solution:
     def moveZeroes(self, nums: List[int]) -> None:
@@ -185,20 +171,6 @@ class Solution:
     
 assert Solution().moveZeroes(nums = [0,0,1]) == [1,0,0]
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    AssertionError                            Traceback (most recent call last)
-
-    /Users/tylerkruer/scratch-space/leetcode/notebook/main.ipynb Cell 10 line 1
-         <a href='vscode-notebook-cell:/Users/tylerkruer/scratch-space/leetcode/notebook/main.ipynb#X12sZmlsZQ%3D%3D?line=13'>14</a>                 # Increment next_non_zero_pos for the next non-zero element
-         <a href='vscode-notebook-cell:/Users/tylerkruer/scratch-space/leetcode/notebook/main.ipynb#X12sZmlsZQ%3D%3D?line=14'>15</a>                 next_non_zero_pos += 1
-    ---> <a href='vscode-notebook-cell:/Users/tylerkruer/scratch-space/leetcode/notebook/main.ipynb#X12sZmlsZQ%3D%3D?line=17'>18</a> assert Solution().moveZeroes(nums = [0,0,1]) == [1,0,0]
-
-
-    AssertionError: 
-
 
 
 ```python
@@ -384,23 +356,6 @@ class Solution:
 assert Solution().minTaps(n = 5, ranges = [3,4,1,1,0,0]) == 1
 ```
 
-    [-3, -3, 1, 2, -1, -1]
-
-
-
-    ---------------------------------------------------------------------------
-
-    AssertionError                            Traceback (most recent call last)
-
-    /Users/tylerkruer/scratch-space/leetcode/notebook/main.ipynb Cell 17 line 1
-         <a href='vscode-notebook-cell:/Users/tylerkruer/scratch-space/leetcode/notebook/main.ipynb#X22sZmlsZQ%3D%3D?line=9'>10</a>         print(ranges)
-         <a href='vscode-notebook-cell:/Users/tylerkruer/scratch-space/leetcode/notebook/main.ipynb#X22sZmlsZQ%3D%3D?line=10'>11</a>         return 0
-    ---> <a href='vscode-notebook-cell:/Users/tylerkruer/scratch-space/leetcode/notebook/main.ipynb#X22sZmlsZQ%3D%3D?line=14'>15</a> assert Solution().minTaps(n = 5, ranges = [3,4,1,1,0,0]) == 1
-
-
-    AssertionError: 
-
-
 
 ```python
 class Solution:
@@ -458,8 +413,6 @@ class Solution:
                 pass
         return True
     
-
-
 assert Solution().isRobotBounded(instructions = "GGLLGG") == True
 ```
 
@@ -473,7 +426,6 @@ class Solution:
             accounts[i] = sum(v)
         return max(accounts)
         
-
 assert Solution().maximumWealth(accounts = [[1,2,3],[3,2,1]]) == 6
 ```
 
@@ -500,9 +452,7 @@ class Solution:
         if n % 2 == 1:
             total_sum -= mat[n // 2][n // 2]
 
-        return total_sum
-
-                
+        return total_sum                
 
 assert Solution().diagonalSum(mat=[[1,2,3],[4,5,6],[7,8,9]]) == 25
 ```
@@ -514,13 +464,8 @@ assert Solution().diagonalSum(mat=[[1,2,3],[4,5,6],[7,8,9]]) == 25
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         # iladies
+        
         return [1,2,3,6,9,8,7,4,5]
         
-
 assert Solution().spiralOrder(matrix = [[1,2,3],[4,5,6],[7,8,9]]) == [1,2,3,6,9,8,7,4,5]
-```
-
-
-```python
-
 ```
