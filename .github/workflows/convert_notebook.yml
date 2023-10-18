@@ -38,5 +38,5 @@ jobs:
           echo "No changes to commit"
         else
           git commit -m "[CI] Convert Jupyter Notebooks to Markdown"
-          git push https://${{ secrets.PERSONAL_TOKEN }}@github.com/tkruer/lc.git
+          git push https://${{ secrets.PERSONAL_TOKEN }}@github.com/tkruer/lc.git HEAD:main
         fi
