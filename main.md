@@ -469,3 +469,53 @@ class Solution:
         
 assert Solution().spiralOrder(matrix = [[1,2,3],[4,5,6],[7,8,9]]) == [1,2,3,6,9,8,7,4,5]
 ```
+
+
+```python
+# https://leetcode.com/problems/spiral-matrix/?envType=study-plan-v2&envId=programming-skills
+
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        if not matrix:
+            return []
+        
+        # Define the boundaries
+        top, bottom, left, right = 0, len(matrix) - 1, 0, len(matrix[0]) - 1
+        result = []
+        
+        while top <= bottom and left <= right:
+            # Traverse from left to right
+            for j in range(left, right + 1):
+                result.append(matrix[top][j])
+            # Adjust top boundary
+            top += 1
+            
+            # Traverse from top to bottom
+            for i in range(top, bottom + 1):
+                result.append(matrix[i][right])
+            # Adjust right boundary
+            right -= 1
+            
+            # Check if top boundary has crossed bottom boundary
+            if top <= bottom:
+                # Traverse from right to left
+                for j in range(right, left - 1, -1):
+                    result.append(matrix[bottom][j])
+                # Adjust bottom boundary
+                bottom -= 1
+                
+            # Check if left boundary has crossed right boundary
+            if left <= right:
+                # Traverse from bottom to top
+                for i in range(bottom, top - 1, -1):
+                    result.append(matrix[i][left])
+                # Adjust left boundary
+                left += 1
+        
+        return result
+
+            
+        
+
+assert Solution().spiralOrder(matrix = [[1,2,3],[4,5,6],[7,8,9]]) == [1,2,3,6,9,8,7,4,5]
+```
