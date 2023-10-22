@@ -577,5 +577,162 @@ assert Solution().setZeroes(matrix = [[1,1,1],[1,0,1],[1,1,1]]) == [[1,0,1],[0,0
 
 
 ```python
+# https://leetcode.com/problems/count-odd-numbers-in-an-interval-range/?envType=study-plan-v2&envId=programming-skills
+
+class Solution:
+    def countOdds(self, low: int, high: int) -> int:
+        """This one we get time limit errors pretty quickly so we need to optimize it, optimize it by checking if the number is even or odd before we start counting"""
+        if low % 2 == 0:
+            low += 1
+        
+        # Check if 'high' is even
+        if high % 2 == 0:
+            high -= 1
+            
+        return (high - low) // 2 + 1
+        
+assert Solution().countOdds(low = 3, high = 7) == 3
+```
+
+
+```python
+# https://leetcode.com/problems/average-salary-excluding-the-minimum-and-maximum-salary/description/?envType=study-plan-v2&envId=programming-skills
+
+class Solution:
+    def average(self, salary: List[int]) -> float:
+        salary.sort()
+        salary = salary[1:-1]
+        return sum(salary) / len(salary)
+        
+
+assert Solution().average(salary = [4000,3000,1000,2000]) == 2500.00000
+```
+
+
+```python
+# https://leetcode.com/problems/lemonade-change/description/?envType=study-plan-v2&envId=programming-skills
+
+class Solution:
+    def lemonadeChange(self, bills: List[int]) -> bool:
+        # Initialize the number of fives and tens
+        fives, tens = 0, 0
+        
+        # Iterate through the bills
+        for bill in bills:
+            # Check if the bill is a five
+            if bill == 5:
+                fives += 1
+            # Check if the bill is a ten
+            elif bill == 10:
+                # Check if we have enough fives
+                if fives == 0:
+                    return False
+                # Update fives and tens
+                fives -= 1
+                tens += 1
+            # Check if the bill is a twenty
+            else:
+                # Check if we have enough fives and tens
+                if fives > 0 and tens > 0:
+                    fives -= 1
+                    tens -= 1
+                # Check if we have enough fives
+                elif fives >= 3:
+                    fives -= 3
+                else:
+                    return False
+        
+        return True
+        
+
+assert Solution().lemonadeChange(bills = [5,5,5,10,20]) == True
+```
+
+
+```python
+# https://leetcode.com/problems/largest-perimeter-triangle/description/?envType=study-plan-v2&envId=programming-skills
+
+class Solution:
+    def largestPerimeter(self, nums: List[int]) -> int:
+        nums.sort(reverse=True)
+        for i in range(len(nums)-2):
+            if nums[i] < nums[i+1] + nums[i+2]:
+                return nums[i] + nums[i+1] + nums[i+2]
+        return 0
+        
+assert Solution().largestPerimeter(nums = [2,1,2]) == 5
+```
+
+
+```python
+# https://leetcode.com/problems/check-if-it-is-a-straight-line/description/?envType=study-plan-v2&envId=programming-skills
+
+class Solution:
+    def checkStraightLine(self, coordinates: List[List[int]]) -> bool:
+        # Get the first two points
+        x0, y0 = coordinates[0]
+        x1, y1 = coordinates[1]
+        
+        # Iterate through the remaining points
+        for i in range(2, len(coordinates)):
+            # Get the current point
+            x, y = coordinates[i]
+            
+            # Check if the current point is on the line
+            if (y1 - y0) * (x - x1) != (y - y1) * (x1 - x0):
+                return False
+        
+        return True
+        
+
+assert Solution().checkStraightLine(coordinates = [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]) == True
+```
+
+
+```python
+# https://leetcode.com/problems/add-binary/description/?envType=study-plan-v2&envId=programming-skills
+
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        
+        # Initialize the result
+        result = ''
+        
+        # Initialize the carry
+        carry = 0
+        
+        # Initialize the pointers
+        i, j = len(a) - 1, len(b) - 1
+        
+        # Iterate through the strings
+        while i >= 0 or j >= 0:
+            # Get the digits
+            digit_a = int(a[i]) if i >= 0 else 0
+            digit_b = int(b[j]) if j >= 0 else 0
+            
+            # Compute the sum
+            digit_sum = digit_a + digit_b + carry
+            
+            # Update the carry
+            carry = digit_sum // 2
+            
+            # Update the result
+            result = str(digit_sum % 2) + result
+            
+            # Update the pointers
+            i -= 1
+            j -= 1
+        
+        # Check if there is a carry left over
+        if carry:
+            result = '1' + result
+        
+        return result
+    
+assert Solution().addBinary(a = "11", b = "1") == "100"
+```
+
+
+```python
 
 ```
