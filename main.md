@@ -734,5 +734,73 @@ assert Solution().addBinary(a = "11", b = "1") == "100"
 
 
 ```python
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        num_1 = int(num1)
+        num_2 = int(num2)
+        return str(num_1 * num_2)
+        
+assert Solution().multiply(num1 = "2", num2 = "3") == "6"
+
+```
+
+
+```python
+# https://leetcode.com/problems/powx-n/?envType=study-plan-v2&envId=programming-skills
+
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        return x ** n
+    
+assert Solution().myPow(x = 2.00000, n = 10) == 1024.00000
+
+```
+
+
+```python
+# https://leetcode.com/problems/merge-two-sorted-lists/description/?envType=study-plan-v2&envId=programming-skills
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        # Initialize dummy node and current pointer
+        dummy = ListNode(-1)
+        current = dummy
+        
+        # Initialize pointers for list1 and list2
+        p1 = list1
+        p2 = list2
+        
+        while p1 and p2: 
+            if p1.val < p2.val:
+                # Add p1 to merged list and move p1 forward
+                current.next = p1
+                p1 = p1.next
+            else:
+                # Add p2 to merged list and move p2 forward
+                current.next = p2
+                p2 = p2.next
+            current = current.next 
+        
+        if p1:
+            current.next = p1
+        else:
+            current.next = p2
+        
+        return dummy.next  # Return merged list without dummy node
+
+
+
+
+assert Solution().mergeTwoLists(list1 = [1,2,4], list2 = [1,3,4]) == [1,1,2,3,4,4]
+```
+
+
+```python
 
 ```
