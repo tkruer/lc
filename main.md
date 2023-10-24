@@ -4,7 +4,7 @@
 
 
 ```python
-from typing import *
+from typing import List, Tuple, Dict, Any, Union, Optional
 ```
 
 
@@ -798,6 +798,62 @@ class Solution:
 
 
 assert Solution().mergeTwoLists(list1 = [1,2,4], list2 = [1,3,4]) == [1,1,2,3,4,4]
+```
+
+
+```python
+
+```
+
+
+```python
+# https://leetcode.com/problems/add-two-numbers/description/?envType=study-plan-v2&envId=programming-skills
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:        
+            # Initialize dummy node and current pointer
+            dummy = ListNode(-1)
+            current = dummy
+            
+            # Initialize pointers for l1 and l2
+            p1 = l1
+            p2 = l2
+            
+            # Initialize carry
+            carry = 0
+            
+            while p1 or p2:
+                # Get the digits
+                digit1 = p1.val if p1 else 0
+                digit2 = p2.val if p2 else 0
+                
+                # Compute the sum
+                digit_sum = digit1 + digit2 + carry
+                
+                # Update the carry
+                carry = digit_sum // 10
+                
+                # Update the result
+                current.next = ListNode(digit_sum % 10)
+                
+                # Update the pointers
+                p1 = p1.next if p1 else None
+                p2 = p2.next if p2 else None
+                current = current.next
+            
+            # Check if there is a carry left over
+            if carry:
+                current.next = ListNode(carry)
+
+            return dummy.next  # Return merged list without dummy node
+        
+
+assert Solution().addTwoNumbers(l1 = [2,4,3], l2 = [5,6,4]) == [7,0,8]
 ```
 
 
