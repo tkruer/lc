@@ -846,3 +846,127 @@ class Solution:
         return reverse_list(dummy.next)
     
 ```
+
+
+```python
+# https://leetcode.com/problems/maximum-depth-of-binary-tree/?envType=study-plan-v2&envId=programming-skills
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        
+        return max(
+            self.maxDepth(root.left), 
+            self.maxDepth(root.right)
+            ) + 1
+
+
+assert Solution().maxDepth(root = [3,9,20,None,None,15,7]) == 3
+```
+
+
+```python
+# https://leetcode.com/problems/minimum-depth-of-binary-tree/description/?envType=study-plan-v2&envId=programming-skills
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        
+        if not root.left:
+            return self.minDepth(root.right) + 1
+        
+        if not root.right:
+            return self.minDepth(root.left) + 1
+        
+        return min(
+            self.minDepth(root.left), 
+            self.minDepth(root.right)
+            ) + 1
+        
+
+assert Solution().minDepth(root = [3,9,20,None,None,15,7]) == 2
+```
+
+
+```python
+# https://leetcode.com/problems/binary-tree-inorder-traversal/description/?envType=study-plan-v2&envId=programming-skills
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        
+        return (
+            self.inorderTraversal(root.left) + 
+            [root.val] + 
+            self.inorderTraversal(root.right)
+            )
+
+assert Solution().inorderTraversal(root = [1,None,2,3]) == [1,3,2]
+```
+
+
+```python
+# https://leetcode.com/problems/invert-binary-tree/?envType=study-plan-v2&envId=programming-skills
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        
+        root.left, root.right = (
+            self.invertTree(root.right), 
+            self.invertTree(root.left)
+            )
+        
+        return root
+        
+
+assert Solution().invertTree(root = [4,2,7,1,3,6,9]) == [4,7,2,9,6,3,1]
+```
+
+
+```python
+# https://leetcode.com/problems/design-parking-system/description/?envType=study-plan-v2&envId=programming-skills
+
+class ParkingSystem:
+
+    def __init__(self, big: int, medium: int, small: int):
+        self.spaces = [big, medium, small]
+        
+    def addCar(self, carType: int) -> bool:
+        if self.spaces[carType - 1] > 0:
+            self.spaces[carType - 1] -= 1
+            return True
+        else:
+            return False
+
+assert ParkingSystem(big = 1, medium = 1, small = 0).addCar(carType = 1) == True
+```
