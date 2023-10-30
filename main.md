@@ -970,3 +970,85 @@ class ParkingSystem:
 
 assert ParkingSystem(big = 1, medium = 1, small = 0).addCar(carType = 1) == True
 ```
+
+
+```python
+# https://leetcode.com/problems/design-hashmap/description/?envType=study-plan-v2&envId=programming-skills
+class MyHashMap:
+
+    def __init__(self):
+        self.size = 1000
+        self.map = [None] * self.size        
+
+     def put(self, key: int, value: int) -> None:
+        index = key % self.size  # Get the index using modulo operation
+        # If it's the first time inserting with this index, create a list
+        if self.map[index] is None:
+            self.map[index] = []
+        # Update or append the (key, value) tuple
+        for i, (k, v) in enumerate(self.map[index]):
+            if k == key:
+                self.map[index][i] = (key, value)
+                return
+        self.map[index].append((key, value))
+
+    def get(self, key: int) -> int:
+        index = key % self.size
+        if self.map[index] is None:
+            return -1  # Key is not present
+        for (k, v) in self.map[index]:
+            if k == key:
+                return v
+        return -1  # Key is not present
+        
+
+    def remove(self, key: int) -> None:
+        index = key % self.size
+        if self.map[index] is not None:
+            self.map[index] = [(k, v) for k, v in self.map[index] if k != key]
+        
+
+
+# Your MyHashMap object will be instantiated and called as such:
+# obj = MyHashMap()
+# obj.put(key,value)
+# param_2 = obj.get(key)
+# obj.remove(key)
+```
+
+
+```python
+class UndergroundSystem:
+
+    def __init__(self):
+        self.check_in_data = {}
+        self.journey_data = {}
+        
+
+    def checkIn(self, id: int, stationName: str, t: int) -> None:
+        self.check_in_data[id] = (stationName, t)        
+        
+
+    def checkOut(self, id: int, stationName: str, t: int) -> None:
+        self.check_in_data[id] = (stationName, t)
+
+    def getAverageTime(self, startStation: str, endStation: str) -> float:
+        total_time = 0
+        total_trips = 0
+        
+        for id, (start, start_time) in self.check_in_data.items():
+            end, end_time = self.check_out_data[id]
+            
+            if start == startStation and end == endStation:
+                total_time += end_time - start_time
+                total_trips += 1
+        
+        return total_time / total_trips
+
+
+# Your UndergroundSystem object will be instantiated and called as such:
+# obj = UndergroundSystem()
+# obj.checkIn(id,stationName,t)
+# obj.checkOut(id,stationName,t)
+# param_3 = obj.getAverageTime(startStation,endStation)
+```
