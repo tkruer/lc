@@ -1021,34 +1021,310 @@ class MyHashMap:
 class UndergroundSystem:
 
     def __init__(self):
-        self.check_in_data = {}
-        self.journey_data = {}
-        
+        self.check_ins = {}  # Maps ID to (stationName, t)
+        self.travel_times = {}  # Maps (startStation, endStation) to (totalTime, totalTrips)
 
-    def checkIn(self, id: int, stationName: str, t: int) -> None:
-        self.check_in_data[id] = (stationName, t)        
-        
+    def checkIn(self, id, stationName, t):
+        # Record the check-in data
+        self.check_ins[id] = (stationName, t)
 
-    def checkOut(self, id: int, stationName: str, t: int) -> None:
-        self.check_in_data[id] = (stationName, t)
+    def checkOut(self, id, stationName, t):
+        # Check if the user has checked in
+        if id in self.check_ins:
+            start_station, start_time = self.check_ins.pop(id)
+            # Calculate the travel time
+            travel_time = t - start_time
+            # Update the travel times data
+            if (start_station, stationName) not in self.travel_times:
+                self.travel_times[(start_station, stationName)] = (0, 0)  # Initialize if not present
+            total_time, total_trips = self.travel_times[(start_station, stationName)]
+            # Update the total time and total trips
+            self.travel_times[(start_station, stationName)] = (total_time + travel_time, total_trips + 1)
 
-    def getAverageTime(self, startStation: str, endStation: str) -> float:
-        total_time = 0
-        total_trips = 0
-        
-        for id, (start, start_time) in self.check_in_data.items():
-            end, end_time = self.check_out_data[id]
-            
-            if start == startStation and end == endStation:
-                total_time += end_time - start_time
-                total_trips += 1
-        
+    def getAverageTime(self, startStation, endStation):
+        # Calculate the average time
+        total_time, total_trips = self.travel_times.get((startStation, endStation), (0, 0))
+        if total_trips == 0:
+            return 0  # Avoid division by zero
         return total_time / total_trips
+```
 
 
-# Your UndergroundSystem object will be instantiated and called as such:
-# obj = UndergroundSystem()
-# obj.checkIn(id,stationName,t)
-# obj.checkOut(id,stationName,t)
-# param_3 = obj.getAverageTime(startStation,endStation)
+```python
+class BrowserHistory:
+    
+    def __init__(self, homepage: str):
+        self.history = [homepage]  # The history stack with the homepage
+        self.current = 0  # The current index in the history
+
+    def visit(self, url: str):
+        # Go to the url from the current page and clear the forward history
+        self.history = self.history[:self.current + 1]  # Clear forward history
+        self.history.append(url)  # Add the new url to the history
+        self.current += 1  # Update the current index to the new url
+
+    def back(self, steps: int):
+        # Go back in the history by steps number of steps
+        self.current = max(0, self.current - steps)  # Ensure we don't go back past the homepage
+        return self.history[self.current]  # Return the current url
+
+    def forward(self, steps: int):
+        # Go forward in the history by steps number of steps
+        self.current = min(len(self.history) - 1, self.current + steps)  # Ensure we don't go forward past the latest page
+        return self.history[self.current]  # Return the current url
+
+```
+
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class MyLinkedList:
+
+    def __init__(self):
+        self.size = 0
+        self.head = ListNode(0)  # Sentinel node as pseudo-head
+
+    def get(self, index: int) -> int:
+        # If the index is invalid, return -1
+        if index < 0 or index >= self.size:
+            return -1
+        current = self.head
+        # Use the sentinel node to start at the head
+        for _ in range(index + 1):
+            current = current.next
+        return current.val
+
+    def addAtHead(self, val: int) -> None:
+        self.addAtIndex(0, val)
+
+    def addAtTail(self, val: int) -> None:
+        self.addAtIndex(self.size, val)
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        # If the index is greater than the length, the node will not be inserted
+        if index > self.size:
+            return
+        # If the index is negative, the node will be inserted at the head of the list
+        if index < 0:
+            index = 0
+        self.size += 1
+        # Find predecessor of the node to be added
+        pred = self.head
+        for _ in range(index):
+            pred = pred.next
+        # Node to be added
+        to_add = ListNode(val)
+        # Insertion itself
+        to_add.next = pred.next
+        pred.next = to_add
+
+    def deleteAtIndex(self, index: int) -> None:
+        # If the index is invalid, do nothing
+        if index < 0 or index >= self.size:
+            return
+        self.size -= 1
+        # Find predecessor of the node to be deleted
+        pred = self.head
+        for _ in range(index):
+            pred = pred.next
+        # Delete pred.next 
+        pred.next = pred.next.next
+
+
+```
+
+
+```python
+class MyCircularQueue:
+
+    def __init__(self, k: int):
+        self.queue = [0] * k
+        self.headIndex = 0
+        self.count = 0
+        self.capacity = k
+
+    def enQueue(self, value: int) -> bool:
+        if self.count == self.capacity:
+            return False
+        self.queue[(self.headIndex + self.count) % self.capacity] = value
+        self.count += 1
+        return True
+
+    def deQueue(self) -> bool:
+        if self.count == 0:
+            return False
+        self.headIndex = (self.headIndex + 1) % self.capacity
+        self.count -= 1
+        return True
+
+    def Front(self) -> int:
+        if self.count == 0:
+            return -1
+        return self.queue[self.headIndex]
+
+    def Rear(self) -> int:
+        if self.count == 0:
+            return -1
+        return self.queue[(self.headIndex + self.count - 1) % self.capacity]
+
+    def isEmpty(self) -> bool:
+        return self.count == 0
+
+    def isFull(self) -> bool:
+        return self.count == self.capacity
+
+
+```
+
+
+```python
+class Solution:
+    def buddyStrings(self, s: str, goal: str) -> bool:
+        # If lengths differ, cannot be buddy strings
+        if len(s) != len(goal):
+            return False
+        
+        # If strings are the same, need at least one duplicate character
+        if s == goal:
+            seen = set()
+            for char in s:
+                if char in seen:
+                    return True
+                seen.add(char)
+            return False
+        
+        # Find the pairs of characters that differ
+        pairs = []
+        for a, b in zip(s, goal):
+            if a != b:
+                pairs.append((a, b))
+            if len(pairs) > 2:  # More than 2 differences means they can't be buddy strings
+                return False
+        
+        # Check if there are exactly 2 pairs and they are the same characters but in different order
+        return len(pairs) == 2 and pairs[0] == pairs[1][::-1]
+
+```
+
+
+```python
+class Solution:
+    def validWordSquare(self, words: List[str]) -> bool:
+        if not all(len(word) == len(words) for word in words):
+            return False
+        
+        # Check if every word matches its corresponding column
+        for i in range(len(words)):
+            for j in range(len(words[i])):
+                # If the corresponding position in the column doesn't match
+                # the character in the row, it's not a valid word square.
+                # This also handles out-of-bound cases implicitly.
+                if j >= len(words) or i >= len(words[j]) or words[i][j] != words[j][i]:
+                    return False
+        
+        return True
+```
+
+
+```python
+class Solution:
+    def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[List[int]]:
+        missing_ranges = []
+        next_num = lower
+
+        for num in nums:
+            # Skip the numbers less than the lower bound
+            if num < next_num:
+                continue
+            # If there is a gap between the next number we're looking for and the current number
+            if num > next_num:
+                # Single number range or a range of numbers
+                missing_ranges.append([next_num, num - 1])
+            # Update the next number, preventing integer overflow
+            next_num = num + 1 if num < upper else upper + 1
+
+        # After the loop, check if there's still a range we need to add
+        if next_num <= upper:
+            missing_ranges.append([next_num, upper])
+
+        return missing_ranges
+        
+```
+
+
+```python
+class Solution:
+    def confusingNumber(self, n: int) -> bool:
+        valid_rotations = {'0': '0', '1': '1', '6': '9', '8': '8', '9': '6'}
+        str_n = str(n)
+        rotated_str = ""
+        
+        for digit in str_n:
+            if digit not in valid_rotations:
+                return False
+            rotated_str = valid_rotations[digit] + rotated_str
+        
+        return rotated_str != str_n
+
+
+```
+
+
+```python
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        MAX_INT, MIN_INT = 2**31 - 1, -2**31
+        i, n, sign = 0, len(s), 1  # Initialize index, length, and sign
+        result = 0  # Initialize result
+        
+        # Discard all leading whitespaces
+        while i < n and s[i] == ' ':
+            i += 1
+        
+        # Check if the next character is '-' or '+'
+        if i < n and (s[i] == '+' or s[i] == '-'):
+            sign = -1 if s[i] == '-' else 1
+            i += 1
+        
+        # Process digits and build the result
+        while i < n and s[i].isdigit():
+            digit = int(s[i])
+            # Check for overflow and clamp if necessary
+            if result > MAX_INT // 10 or (result == MAX_INT // 10 and digit > MAX_INT % 10):
+                return MAX_INT if sign == 1 else MIN_INT
+            result = result * 10 + digit
+            i += 1
+        
+        return sign * result
+```
+
+
+```python
+import re
+
+class Solution:
+    def isNumber(self, s: str) -> bool:
+        pattern = re.compile(r"""
+        ^                   # Start of string
+        [+-]?               # Optional sign
+        (                   # Start of group:
+          (\d+\.\d*)        # - Digits, dot, optional digits OR
+          | (\.\d+)         # - Dot, digits OR
+          | \d+             # - Digits
+        )                   # End of group
+        ([eE][+-]?\d+)?     # Optional exponent part: 'e' or 'E', optional sign, digits
+        $                   # End of string
+    """, re.VERBOSE)
+
+        return bool(pattern.match(s))
+        
+```
+
+
+```python
+
 ```
