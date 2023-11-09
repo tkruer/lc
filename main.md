@@ -1339,5 +1339,219 @@ assert Solution().permute(nums = [1,2,3]) == [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3
 ```
 
 
+```python
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        # Initialize the compressed string
+        compressed = []
+        
+        # Initialize the current character and count
+        current_char = chars[0]
+        current_count = 1
+        
+        # Iterate through the characters
+        for i in range(1, len(chars)):
+            # Get the current character
+            char = chars[i]
+            
+            # Check if the character is the same as the current character
+            if char == current_char:
+                current_count += 1
+            else:
+                # Add the current character and count to the compressed string
+                compressed.append(current_char)
+                if current_count > 1:
+                    compressed.extend(list(str(current_count)))
+                
+                # Update the current character and count
+                current_char = char
+                current_count = 1
+        
+        # Add the last character and count to the compressed string
+        compressed.append(current_char)
+        if current_count > 1:
+            compressed.extend(list(str(current_count)))
+        
+        # Update the input array
+        chars[:] = compressed
+        
+        return len(chars)
+        
+
+assert Solution().compress(chars = ["a","a","b","b","c","c","c"]) == ["a","2","b","2","c","3"]        
+```
 
 
+```python
+class Solution:
+    def countBattleships(self, board: List[List[str]]) -> int:
+        count = 0
+        if len(board) == 0: 
+            return count
+        m, n = len(board), len(board[0])
+        
+        for i in range(m):
+            for j in range(n):
+                print(board[i][j])
+            
+            
+        
+        return count
+
+assert Solution().countBattleships(board = [["X",".",".","X"],[".",".",".","X"],[".",".",".","X"]]) == 2
+```
+
+    X
+    .
+    .
+    X
+    .
+    .
+    .
+    X
+    .
+    .
+    .
+    X
+
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    /Users/tylerkruer/lc/main.ipynb Cell 58 line 1
+         <a href='vscode-notebook-cell:/Users/tylerkruer/lc/main.ipynb#Y111sZmlsZQ%3D%3D?line=9'>10</a>                 print(board[i][j])
+         <a href='vscode-notebook-cell:/Users/tylerkruer/lc/main.ipynb#Y111sZmlsZQ%3D%3D?line=13'>14</a>         return count
+    ---> <a href='vscode-notebook-cell:/Users/tylerkruer/lc/main.ipynb#Y111sZmlsZQ%3D%3D?line=15'>16</a> assert Solution().countBattleships(board = [["X",".",".","X"],[".",".",".","X"],[".",".",".","X"]]) == 2
+
+
+    AssertionError: 
+
+
+
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data  # Assign data
+        self.next = None  # Initialize next as null
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None  # Initialize head as null
+
+    def print_list(self):
+        temp = self.head
+        while temp:
+            print(temp.data)
+            temp = temp.next
+
+    def append(self, new_data):
+        new_node = Node(new_data)
+        if self.head is None:
+            self.head = new_node
+            return
+        last = self.head
+        while last.next:
+            last = last.next
+        last.next = new_node
+
+    def prepend(self, new_data):
+        new_node = Node(new_data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def find(self, value):
+        current = self.head
+        while current:
+            if current.data == value:
+                return True
+            current = current.next
+        return False
+
+    def delete_node(self, key):
+        temp = self.head
+
+        if temp is not None:
+            if temp.data == key:
+                self.head = temp.next
+                temp = None
+                return
+
+        while temp is not None:
+            if temp.data == key:
+                break
+            prev = temp
+            temp = temp.next
+
+        if temp is None:
+            return
+
+        prev.next = temp.next
+        temp = None
+
+```
+
+
+```python
+# Create a linked list
+llist = LinkedList()
+
+# Append nodes
+llist.append(1)
+llist.append(2)
+llist.append(3)
+
+# Print the linked list
+llist.print_list()
+
+# Prepend a node
+llist.prepend(0)
+
+# Print the linked list
+llist.print_list()
+
+# Delete a node
+llist.delete_node(2)
+
+# Print the linked list
+llist.print_list()
+
+```
+
+    1
+    2
+    3
+    0
+    1
+    2
+    3
+    0
+    1
+    3
+
+
+
+```python
+llist = LinkedList()
+llist.append(1)
+llist.append(2)
+llist.append(3)
+
+# Check if value 2 is in the list
+print(llist.find(2))  # This should return True
+
+# Check if value 4 is in the list
+print(llist.find(4))  # This should return False
+
+```
+
+    True
+    False
+
+
+
+```python
+
+```
