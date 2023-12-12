@@ -1553,5 +1553,184 @@ print(llist.find(4))  # This should return False
 
 
 ```python
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        nums1 = nums1[:m] + nums2[:n]
+        nums1.sort()
+        return nums1
+        
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        
+
+assert Solution().merge(nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3) == [1,2,2,3,5,6]
+```
+
+
+```python
+
+```
+
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        binary_sol = ""
+        while head:
+            binary_sol += str(head.val)
+            head = head.next
+        return int(binary_sol, 2)        
+        
+    
+assert Solution().getDecimalValue(head = ListNode(1, ListNode(0, ListNode(1)))) == 5
+```
+
+
+```python
+class Solution:
+    def vowelStrings(self, words: List[str], left: int, right: int) -> int:
+        count = 0
+        for idx, val in enumerate(words):            
+            if val[0] in ["a", "e", "i", "o", "u"] and val[-1] in ["a", "e", "i", "o", "u"]:
+                count += 1
+        return count
+
+assert Solution().vowelStrings(words = ["hey","aeo","mu","ooo","artro"], left = 1, right = 4) == 3
+assert Solution().vowelStrings(words = ["are","amy","u"], left = 0, right = 2) == 2
+```
+
+
+```python
+class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        for idx, val in enumerate(s):
+            if s.count(val) == 1:
+                return idx
+        return -1
+
+assert Solution().firstUniqChar(s = "leetcode") == 0
+```
+
+
+```python
+class Solution:
+    def minimumReplacement(self, nums: List[int]) -> int:
+        replacements = 0 
+        #  In one operation you can replace any element of the array with any two elements that sum to it.
+        if nums == sorted(nums):
+            return 0        
+        for idx, val in enumerate(nums):
+            if val > nums[idx - 1]:                
+                # increment replacements of 1
+                replacements += 1
+                # subtract val with nums[idx - 1] and append the two values to the array remove the val
+                nums.remove(val)
+                nums.append(val - nums[idx - 1])
+                nums.append(nums[idx - 1])                
+        return replacements
+        
+
+
+# assert Solution().minimumReplacement(nums = [1,2,3,4,5]) == 0
+assert Solution().minimumReplacement(nums = [3,9,3]) == 2
+```
+
+
+```python
+class Solution:
+    def assignTasks(self, servers: List[int], tasks: List[int]) -> List[int]:
+        return [0]
+        
+
+assert Solution().assignTasks(servers = [3,3,2], tasks = [1,2,3,2,1,2]) == [2,2,0,2,1,2]
+```
+
+
+```python
+class Solution:
+    def getBiggestThree(self, grid: List[List[int]]) -> List[int]:
+        # size of the grid indicates how many rombuses we can have
+        # we want to return the biggest 3 (or less) rombuses
+        m = len(grid)
+        n = len(grid[0])
+
+        all_area = set() 
+
+
+        right_pfsum = [[grid[i][j] for j in range(n)] for i in range(m)]
+        left_pfsum = [[grid[i][j] for j in range(n)] for i in range(m)]
+
+        print(right_pfsum)
+        print(left_pfsum)        
+
+
+        if len(grid) == 1:
+            return [grid[0][0]]
+        # if len(grid) == 3:
+        #     print(grid[0][1], grid[1][0], grid[1][2], grid[2][1])
+        #     largest = int(grid[0][1] + grid[1][0] + grid[1][2] + grid[2][1])
+        #     print(largest)
+            # return [grid[0][0], grid[0][1], grid[0][2]]
+            
+
+        # for idx, val in enumerate(grid):
+            
+
+# assert Solution().getBiggestThree(grid = [[3,4,5,1,3],[3,3,4,2,3],[20,30,200,40,10],[1,5,5,4,1],[4,3,2,2,5]]) == [228,216,211]
+# assert Solution().getBiggestThree(grid = [[1,2,3],[4,5,6],[7,8,9]]) == [20,9,8]
+# assert Solution().getBiggestThree(grid = [[7,7,7]]) == [7]
+```
+
+
+```python
+class Solution:
+    def isSumEqual(self, firstWord: str, secondWord: str, targetWord: str) -> bool:
+        first_w = ''.join([str(ord(letter) - ord('a')) for letter in firstWord])
+        second_w = ''.join([str(ord(letter) - ord('a')) for letter in secondWord])
+        target_w = ''.join([str(ord(letter) - ord('a')) for letter in targetWord])
+        return int(first_w) + int(second_w) == int(target_w)
+        
+        
+assert Solution().isSumEqual(firstWord = "acb", secondWord = "cba", targetWord = "cdb") == True
+```
+
+
+```python
+class Solution:
+    def largestOddNumber(self, num: str) -> str:
+        for idx, val in enumerate(num):
+            if int(val) % 2 != 0:
+                if idx == len(num) - 1:
+                    return num
+                return num[:idx + 1]
+        return ""
+
+assert Solution().largestOddNumber(num = "52") == "5"
+assert Solution().largestOddNumber(num = "4206") == ""
+assert Solution().largestOddNumber(num = "35427") == "35427"
+```
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    Cell In[105], line 12
+         10 assert Solution().largestOddNumber(num = "52") == "5"
+         11 assert Solution().largestOddNumber(num = "4206") == ""
+    ---> 12 assert Solution().largestOddNumber(num = "35427") == "35427"
+
+
+    AssertionError: 
+
+
+
+```python
 
 ```
