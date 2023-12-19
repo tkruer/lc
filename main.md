@@ -1717,17 +1717,179 @@ assert Solution().largestOddNumber(num = "35427") == "35427"
 ```
 
 
+```python
+class Solution:
+    def checkZeroOnes(self, s: str) -> bool:
+        for idx, val in enumerate(s):
+            """
+            The longest contiguous segment of 1s has length 2: "1101"
+            The longest contiguous segment of 0s has length 1: "1101"
+            The segment of 1s is longer, so return true.
+            """
+            len_one = 0
+            len_zero = 0
+            if val == "1":
+                len_one += 1
+            elif val == "0":
+                len_zero += 1
+        return len_one > len_zero
+            
+
+assert Solution().checkZeroOnes(s = "01111110") == True
+```
+
+
     ---------------------------------------------------------------------------
 
     AssertionError                            Traceback (most recent call last)
 
-    Cell In[105], line 12
-         10 assert Solution().largestOddNumber(num = "52") == "5"
-         11 assert Solution().largestOddNumber(num = "4206") == ""
-    ---> 12 assert Solution().largestOddNumber(num = "35427") == "35427"
+    Cell In[7], line 18
+         14                 len_zero += 1
+         15         return len_one > len_zero
+    ---> 18 assert Solution().checkZeroOnes(s = "01111110") == True
 
 
     AssertionError: 
+
+
+
+```python
+from typing import *
+```
+
+
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        c = 0
+        d = 0
+        m = prices[0]
+        for i in range(1,len(prices)):
+            m=min(m,prices[i])
+            c=max(c,prices[i]-m)
+            d=max(d,c)
+        return d
+            
+
+
+assert Solution().maxProfit(prices = [7,1,5,3,6,4]) == 5
+```
+
+
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def bst(root, min_val=float('-inf'), max_val=float('inf')):
+            if root == None:
+                return True
+            
+            if not (min_val < root.val < max_val):
+                return False
+            
+            return bst(root.left, min_val, root.val) and bst(root.right, root.val, max_val)
+        return bst(root)
+            
+
+assert Solution().isValidBST(
+    TreeNode(2, TreeNode(1), TreeNode(3))
+) == True
+assert Solution().isValidBST(
+    TreeNode(5, TreeNode(1), TreeNode(4, TreeNode(3), TreeNode(6)))
+) == False
+```
+
+
+```python
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """         
+        l = 0
+        r = len(matrix) -1
+        while l < r:
+            matrix[l], matrix[r] = matrix[r], matrix[l]
+            l += 1
+            r -= 1
+        for i in range(len(matrix)):
+	        for j in range(i):
+                  matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+
+Solution().rotate(
+    matrix = [[1,2,3],[4,5,6],[7,8,9]]
+)
+"""[[7,4,1],[8,5,2],[9,6,3]]"""
+```
+
+
+
+
+    '[[7,4,1],[8,5,2],[9,6,3]]'
+
+
+
+
+```python
+class Solution:
+    def partitionString(self, s: str) -> int:
+        for idx, val in enumerate(s):
+            print(idx, val)
+            
+
+assert Solution().partitionString(s = "abacaba") == 4
+```
+
+    0 a
+    1 b
+    2 a
+    3 c
+    4 a
+    5 b
+    6 a
+
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    Cell In[53], line 7
+          3         for idx, val in enumerate(s):
+          4             print(idx, val)
+    ----> 7 assert Solution().partitionString(s = "abacaba") == 4
+
+
+    AssertionError: 
+
+
+
+```python
+class Solution:
+    def problem(input_str: str) -> None:
+        pass
+
+assert Solution().problem(input_str="asdf") == None
+```
+
+
+    ---------------------------------------------------------------------------
+
+    TypeError                                 Traceback (most recent call last)
+
+    Cell In[56], line 5
+          2     def problem(input_str: str) -> None:
+          3         pass
+    ----> 5 assert Solution().problem(input_str="asdf") == None
+
+
+    TypeError: Solution.problem() got multiple values for argument 'input_str'
 
 
 
